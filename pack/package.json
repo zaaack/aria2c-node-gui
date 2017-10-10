@@ -1,0 +1,66 @@
+{
+  "name": "aria2c-node-gui",
+  "version": "1.0.1",
+  "description": "A aria2c gui based on node-systray + webui",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "start": "run-s build && node .",
+    "build": "run-s clean build:lib && git add -A",
+    "pack": "node ./tools/pack.js",
+    "build:lib": "tsc && cross-env NODE_ENV=production babel -x .es6,.js,.es,.jsx,.ts -s true -d ./lib -D ./src",
+    "clean": "del ./lib/**",
+    "lint": "tslint ./src/** --type-check -p ./tsconfig.json",
+    "build:test": "del ./test-dist && cross-env NODE_ENV=production babel -x .es6,.js,.es,.jsx,.ts -s true -d ./test-dist -D ./test",
+    "test": "run-p build:lib build:test && cross-env NODE_ENV=development DEBUG=systray* ava -s",
+    "cover": "cross-env NODE_ENV=development nyc ava"
+  },
+  "bin": {
+    "node-aria2c-gui": "./lib/index.js"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "pre-commit": [
+    "build"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaaack/aria2c-node-gui.git"
+  },
+  "keywords": [
+    "systray",
+    "tray",
+    "gui"
+  ],
+  "author": "zaaack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zaaack/aria2c-node-gui/issues"
+  },
+  "homepage": "https://github.com/zaaack/aria2c-node-gui#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "debug": "^3.0.1",
+    "decompress": "^4.2.0",
+    "fs-extra": "^4.0.2",
+    "get-port": "^3.2.0",
+    "koa": "^2.3.0",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-router": "^7.2.1",
+    "koa-static": "^v3",
+    "node-fetch": "^1.7.3",
+    "node-notifier": "^5.1.2",
+    "opn": "^5.1.0",
+    "systray": "^1.0.1"
+  },
+  "ava": {
+    "files": [
+      "test-dist/**/*.test.js"
+    ],
+    "require": [
+      "babel-register"
+    ]
+  }
+}

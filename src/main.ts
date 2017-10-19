@@ -13,8 +13,8 @@ import SysTray from 'systray'
 
 let pOpn = file =>
   new Promise((resolve, reject) =>
-    opn(file, err =>
-      err
+    opn(file,
+      err => err
         ? resolve()
         : reject(err)))
 const router = new KoaRouter()
@@ -95,7 +95,7 @@ async function main() {
   // Fix aria2c cannot exit
   tray.onExit((code, signal) => {
     setTimeout(() =>
-    process.exit(0), 1000)
+    process.exit(0), 2000)
   })
 
   startAria2c(rpcPort)

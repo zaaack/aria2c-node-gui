@@ -21,6 +21,14 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "pkg": {
+    "assets": [
+      "node_modules/systray/traybin/**/*",
+      "node_modules/node-notifier/vendor/**/*",
+      "node_modules/opn/**/*",
+      "static/**/*"
+    ]
+  },
   "pre-commit": [
     "build"
   ],
